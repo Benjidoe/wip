@@ -2,20 +2,21 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PizzaController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/pizza', function () {
-    $pizzas = [
-        ['type' => 'hawaiian', 'base' => 'cheesy crust'],
-        ['type' => 'volcano', 'base' => 'garlic crust'],
-        ['type' => 'veg supreme', 'base' => 'thin & crispy']
-    ];
+Route::get('/pizzas', [PizzaController::class, 'index']);
 
-    return view('pizzas', ['pizzas' => $pizzas]);
-});
+Route::get('/pizzas/create', [PizzaController::class, 'create']);
+
+Route::post('/pizzas', [PizzaController::class,'store']);
+
+Route::get('/pizzas/{id}', [PizzaController::class, 'show']);
+
+Route::delete('/pizzas/{id}', [PizzaController::class,'destroy']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
